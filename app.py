@@ -62,6 +62,10 @@ model.fit(X_train_scaled, y_train)
 
 st.success("Machine Learning model trained successfully!")
 st.write("## 🌱 Enter Crop Conditions")
+crop = st.selectbox(
+    "Select Crop",
+    sorted(df["Crop"].unique())
+)
 
 area = st.number_input("Area (hectares)", min_value=0.0, value=1000.0)
 ph = st.number_input("Soil pH", min_value=0.0, max_value=14.0, value=6.5)
@@ -99,6 +103,9 @@ if st.button("🌾 Predict Crop Yield"):
     prediction = model.predict(input_scaled)[0]
 
     st.success(f"Predicted Crop Yield: {prediction:.2f} kg/ha")
+    st.success(
+    f"🌾 Predicted Yield for {crop}: {prediction:.2f} kg/ha"
+)
     st.write("## 🌡️ Climate Stress Simulation")
 
 if st.button("🔥 Simulate Climate Stress"):
